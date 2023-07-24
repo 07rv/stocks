@@ -1,3 +1,5 @@
+import Body from "@/components/Body";
+import Header from "@/components/header";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,7 +9,10 @@ export default function Home() {
         <title>Stock price</title>
         <link rel="icon" href="/stock.ico" />
       </Head>
-      <main></main>
+      <main>
+        <Header />
+        <Body />
+      </main>
     </>
   );
 }
