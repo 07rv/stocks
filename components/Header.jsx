@@ -1,14 +1,16 @@
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+
 const Header = () => {
   return (
-    <div class="container">
-      <div class="row">
-        <nav class="navbar">
-          <div class="logo">
-            <a href="">Stocks</a>
-          </div>
-        </nav>
-      </div>
-    </div>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx={{ alignItems: "center", bgcolor: "black" }}>
+        <Toolbar>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+            Stock
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 
