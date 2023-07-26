@@ -10,6 +10,7 @@ import {
   MenuItem,
   FormHelperText,
   FormControl,
+  Stack,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -39,7 +40,7 @@ const Body = () => {
     date: "",
   });
   const [stocksData, setStockData] = useState({
-    open: "",
+    Open: "",
     High: "",
     Low: "",
     Close: "",
@@ -182,7 +183,48 @@ const Body = () => {
           </Item>
         </Grid>
         <Grid item xs={6} md={8}>
-          <Item>wert</Item>
+          <Item>
+            <Paper
+              variant="outlined"
+              sx={{
+                height: 100,
+                bgcolor: "black",
+                color: "white",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  p: 1,
+                  m: 1,
+                  borderRadius: 1,
+                }}
+              >
+                <Box>
+                  <h2>Open</h2>
+                  <h3>{stocksData.Open}</h3>
+                </Box>
+                <Box>
+                  <h2>Low</h2>
+                  <h3>{stocksData.Low}</h3>
+                </Box>
+                <Box>
+                  <h2>High</h2>
+                  <h3>{stocksData.High}</h3>
+                </Box>
+                <Box>
+                  <h2>Close</h2>
+                  <h3>{stocksData.Close}</h3>
+                </Box>
+                <Box>
+                  <h2>Volume</h2>
+                  <h3>{stocksData.Volume}</h3>
+                </Box>
+              </Box>
+            </Paper>
+          </Item>
         </Grid>
       </Grid>
     </Box>
