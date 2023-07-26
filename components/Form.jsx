@@ -7,11 +7,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  FormHelperText,
   FormControl,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useState } from "react";
+
+import { stocksList } from "@/data/Data";
 
 const defaultTheme = createTheme();
 
@@ -22,7 +25,7 @@ const Form = () => {
   });
   const [errorField, setErrorField] = useState({
     stock: "",
-    data: "",
+    date: "",
   });
 
   const inputsHandler = (name, value) => {
@@ -41,26 +44,26 @@ const Form = () => {
       [field]: errorMessage,
     }));
   };
-  const [age, setAge] = useState("");
   const checkAndSetValidationErrors = () => {
     var hasError = false;
     Object.keys(inputField).map((field) => {
-      if (field === "email") {
+      if (field === "stock") {
         if (inputField[field] === "") {
-          setErrorMessage(field, "Enter Email");
+          setErrorMessage(field, "Please Select Stock");
           hasError = true;
         }
-      } else if (field === "password") {
+      } else if (field === "date") {
         if (inputField[field] === "") {
-          setErrorMessage(field, "Enter Password");
+          setErrorMessage(field, "Please choose date");
           hasError = true;
         }
       }
-      return hasError;
     });
+    return hasError;
   };
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     if (!checkAndSetValidationErrors()) {
     }
   };
@@ -79,12 +82,16 @@ const Form = () => {
           <Box noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <FormControl fullWidth sx={{ minWidth: 120 }}>
-                  <InputLabel id="demo-select-small-label">Stocks</InputLabel>
+                <FormControl
+                  fullWidth
+                  sx={{ minWidth: 120 }}
+                  error={errorField && errorField.stock !== ""}
+                >
+                  <InputLabel id="stock">Stocks</InputLabel>
                   <Select
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    value={age}
+                    labelId="stock"
+                    id="stockl"
+                    value={inputField.stock}
                     label="Stock"
                     name="stock"
                     onChange={(e) => inputsHandler("stock", e.target.value)}
@@ -92,28 +99,41 @@ const Form = () => {
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {stocksList.map((stock) => {
+                      return (
+                        <MenuItem key={stock.id} value={stock.id}>
+                          {stock.value}
+                        </MenuItem>
+                      );
+                    })}
                   </Select>
+                  {errorField && errorField.stock !== "" && (
+                    <FormHelperText>{errorField.stock}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  name="password"
-                  required
-                  error={errorField && errorField.password !== ""}
+                <FormControl
                   fullWidth
-                  id="password"
-                  type="date"
-                  defaultValue={inputField.password}
-                  onChange={(e) => inputsHandler(e.target.name, e.target.value)}
-                  helperText={
-                    errorField && errorField.password !== ""
-                      ? errorField.password
-                      : ""
-                  }
-                />
+                  sx={{ minWidth: 120 }}
+                  error={errorField && errorField.date !== ""}
+                >
+                  <TextField
+                    name="date"
+                    required
+                    fullWidth
+                    id="date"
+                    type="date"
+                    value={inputField.date}
+                    error={errorField && errorField.date !== ""}
+                    onChange={(e) =>
+                      inputsHandler(e.target.name, e.target.value)
+                    }
+                  />
+                  {errorField && errorField.date !== "" && (
+                    <FormHelperText>{errorField.date}</FormHelperText>
+                  )}
+                </FormControl>
               </Grid>
             </Grid>
             <Button
