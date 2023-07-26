@@ -87,9 +87,7 @@ const Form = () => {
                     value={age}
                     label="Stock"
                     name="stock"
-                    onChange={(e) =>
-                      inputsHandler(e.target.name, e.target.value)
-                    }
+                    onChange={(e) => inputsHandler("stock", e.target.value)}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -99,22 +97,6 @@ const Form = () => {
                     <MenuItem value={30}>Thirty</MenuItem>
                   </Select>
                 </FormControl>
-                {/* <TextField
-                  name="email"
-                  required
-                  error={errorField && errorField.email !== ""}
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  autoFocus
-                  defaultValue={inputField.email}
-                  onChange={(e) => inputsHandler(e.target.name, e.target.value)}
-                  helperText={
-                    errorField && errorField.email !== ""
-                      ? errorField.email
-                      : ""
-                  }
-                /> */}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -123,8 +105,7 @@ const Form = () => {
                   error={errorField && errorField.password !== ""}
                   fullWidth
                   id="password"
-                  label="Password"
-                  type="password"
+                  type="date"
                   defaultValue={inputField.password}
                   onChange={(e) => inputsHandler(e.target.name, e.target.value)}
                   helperText={
