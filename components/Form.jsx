@@ -65,6 +65,7 @@ const Form = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!checkAndSetValidationErrors()) {
+      console.log(inputField);
     }
   };
   return (
@@ -101,8 +102,8 @@ const Form = () => {
                     </MenuItem>
                     {stocksList.map((stock) => {
                       return (
-                        <MenuItem key={stock.id} value={stock.id}>
-                          {stock.value}
+                        <MenuItem key={stock.id} value={stock.stockTicker}>
+                          {stock.company}
                         </MenuItem>
                       );
                     })}
