@@ -10,8 +10,8 @@ import {
   MenuItem,
   FormHelperText,
   FormControl,
-  Stack,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useState } from "react";
@@ -178,9 +178,17 @@ const Body = () => {
                       onClick={handleSubmit}
                       fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      sx={{
+                        mt: 3,
+                        mb: 2,
+                        bgcolor: "black",
+                        ":hover": {
+                          bgcolor: "#808080",
+                        },
+                      }}
+                      endIcon={<SearchIcon />}
                     >
-                      Sign In
+                      Search
                     </Button>
                   </Box>
                 </Box>
