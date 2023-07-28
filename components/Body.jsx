@@ -90,12 +90,13 @@ const Body = () => {
     event.preventDefault();
     if (!checkAndSetValidationErrors()) {
       await fetch(
-        process.env.API_URL +
+        process.env.NEXT_PUBLIC_API_URL +
+          "/v1/open-close/" +
           inputField.stock +
           "/" +
           inputField.date +
           "?adjusted=true&apiKey=" +
-          process.env.API_KEY,
+          process.env.NEXT_PUBLIC_API_KEY,
         {
           method: "GET",
           redirect: "follow",
