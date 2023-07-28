@@ -122,10 +122,30 @@ const Body = () => {
             });
             setData("OK");
           } else {
+            setStockData({
+              Open: "",
+              High: "",
+              Low: "",
+              Close: "",
+              Volume: "",
+              Stock: "",
+              Data: [],
+              Labels: [],
+            });
             setData("Not Found");
           }
         })
         .catch((error) => {
+          setStockData({
+            Open: "",
+            High: "",
+            Low: "",
+            Close: "",
+            Volume: "",
+            Stock: "",
+            Data: [],
+            Labels: [],
+          });
           setData("Not Found");
         });
     }
