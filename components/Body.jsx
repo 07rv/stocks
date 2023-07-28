@@ -21,7 +21,6 @@ import { stocksList } from "@/data/Data";
 const defaultTheme = createTheme();
 import { styled } from "@mui/material/styles";
 import Chart from "./Chart";
-import { jsx } from "@emotion/react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -51,7 +50,7 @@ const Body = () => {
     Data: [],
     Labels: [],
   });
-  const [getData, setData] = useState(null);
+  const [getData, setData] = useState("");
   const inputsHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -104,25 +103,31 @@ const Body = () => {
       )
         .then((response) => response.json())
         .then((result) => {
-          setStockData({
-            Open: result.open,
-            Low: result.low,
-            High: result.high,
-            Close: result.close,
-            Volume: result.volume,
-            Stock: result.symbol,
-            Data: Array.from(
-              { length: 50 },
-              () =>
-                Math.floor(
-                  Math.random() * (result.high - result.low + 1) + result.low
-                ) + 1
-            ),
-            Labels: Array.from({ length: 50 }, (_, index) => index + 1),
-          });
-          setData(true);
+          if (result.status === "OK") {
+            setStockData({
+              Open: result.open,
+              Low: result.low,
+              High: result.high,
+              Close: result.close,
+              Volume: result.volume,
+              Stock: result.symbol,
+              Data: Array.from(
+                { length: 50 },
+                () =>
+                  Math.floor(
+                    Math.random() * (result.high - result.low + 1) + result.low
+                  ) + 1
+              ),
+              Labels: Array.from({ length: 50 }, (_, index) => index + 1),
+            });
+            setData("OK");
+          } else {
+            setData("Not Found");
+          }
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => {
+          setData("Not Found");
+        });
     }
   };
   return (
@@ -267,12 +272,34 @@ const Body = () => {
                 </Box>
               </Box>
             </Paper>
-            {getData && (
+            {getData === "OK" && (
               <Chart
                 Title={stocksData.Stock}
                 labels={stocksData.Labels}
                 data={stocksData.Data}
               />
+            )}
+            {getData === "Not Found" && (
+              <Grid
+                sx={{
+                  alignContent: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                  mt: 4,
+                }}
+              >
+                <div class="container">
+                  <img
+                    src="https://i.postimg.cc/2yrFyxKv/giphy.gif"
+                    alt="gif_ing"
+                  />
+                  <p>
+                    ...maybe the data you're looking for the stock{" "}
+                    <b>{inputField.stock}</b> is not found for choosen date{" "}
+                    <b>{inputField.date}</b>
+                  </p>
+                </div>
+              </Grid>
             )}
           </Item>
         </Grid>
