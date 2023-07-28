@@ -21,6 +21,7 @@ import { stocksList } from "@/data/Data";
 const defaultTheme = createTheme();
 import { styled } from "@mui/material/styles";
 import Chart from "./Chart";
+import { jsx } from "@emotion/react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -88,14 +89,38 @@ const Body = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!checkAndSetValidationErrors()) {
-      const res = await fetch("/api/stock", {
-        method: "POST",
-        body: JSON.stringify(inputField),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      setStockData(data);
-      setData(true);
+      await fetch(
+        "https://api.polygon.io/v1/open-close/" +
+          inputField.stock +
+          "/" +
+          inputField.date +
+          "?adjusted=true&apiKey=ICoalL_mBsp1ByLt9g5O4m7CLd0jx_Xg",
+        {
+          method: "GET",
+          redirect: "follow",
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          setStockData({
+            Open: result.open,
+            Low: result.low,
+            High: result.high,
+            Close: result.close,
+            Volume: result.volume,
+            Stock: result.symbol,
+            Data: Array.from(
+              { length: 50 },
+              () =>
+                Math.floor(
+                  Math.random() * (result.high - result.low + 1) + result.low
+                ) + 1
+            ),
+            Labels: Array.from({ length: 50 }, (_, index) => index + 1),
+          });
+          setData(true);
+        })
+        .catch((error) => console.log("error", error));
     }
   };
   return (
