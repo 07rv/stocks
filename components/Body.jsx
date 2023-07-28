@@ -90,11 +90,12 @@ const Body = () => {
     event.preventDefault();
     if (!checkAndSetValidationErrors()) {
       await fetch(
-        "https://api.polygon.io/v1/open-close/" +
+        process.env.API_URL +
           inputField.stock +
           "/" +
           inputField.date +
-          "?adjusted=true&apiKey=ICoalL_mBsp1ByLt9g5O4m7CLd0jx_Xg",
+          "?adjusted=true&apiKey=" +
+          process.env.API_KEY,
         {
           method: "GET",
           redirect: "follow",
