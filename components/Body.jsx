@@ -20,6 +20,7 @@ import { stocksList } from "@/data/Data";
 
 const defaultTheme = createTheme();
 import { styled } from "@mui/material/styles";
+import Chart from "./Chart";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -224,6 +225,7 @@ const Body = () => {
                 </Box>
               </Box>
             </Paper>
+            <Chart />
           </Item>
         </Grid>
       </Grid>
