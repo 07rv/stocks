@@ -46,7 +46,11 @@ const Body = () => {
     Low: "",
     Close: "",
     Volume: "",
+    Stock: "",
+    Data: [],
+    Labels: [],
   });
+  const [getData, setData] = useState(null);
   const inputsHandler = (name, value) => {
     setInputField((prevState) => ({
       ...prevState,
@@ -89,6 +93,7 @@ const Body = () => {
       });
       const data = await res.json();
       setStockData(data);
+      setData(true);
     }
   };
   return (
@@ -225,7 +230,13 @@ const Body = () => {
                 </Box>
               </Box>
             </Paper>
-            <Chart />
+            {getData && (
+              <Chart
+                Title={stocksData.Stock}
+                labels={stocksData.Labels}
+                data={stocksData.Data}
+              />
+            )}
           </Item>
         </Grid>
       </Grid>

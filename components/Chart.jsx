@@ -20,27 +20,16 @@ ChartJS.register(
   Legend
 );
 
-const Chart = () => {
+const Chart = ({ Title, labels, data }) => {
   return (
     <Line
       options={{ responsive: true }}
       data={{
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "Aug",
-          "Sep",
-          "Nov",
-        ],
+        labels: labels,
         datasets: [
           {
-            label: "Dataset 1",
-            data: [1, 2, 3, 4, 5, 6, 7, 9, 13, 45],
+            label: Title,
+            data: data,
             borderColor: "black",
             backgroundColor: "black",
           },
