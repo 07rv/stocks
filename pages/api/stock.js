@@ -1,4 +1,5 @@
 export default function handler(req, res) {
+  const { sticksTick, data } = req.body;
   try {
     const rv = Array.from({ 10: Number }, () => Math.random() * (40 - 10) + 10);
     res.status(200).json({
@@ -7,7 +8,7 @@ export default function handler(req, res) {
       Low: 12,
       Close: 987654,
       Volume: 876543,
-      Stock: "rqwsbgr",
+      Stock: "Google",
       Data: [1, 2, 3, 4, 5, 6, 7, 9, 13, 45],
       Labels: [
         "January",

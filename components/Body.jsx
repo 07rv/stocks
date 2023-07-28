@@ -89,7 +89,9 @@ const Body = () => {
     event.preventDefault();
     if (!checkAndSetValidationErrors()) {
       const res = await fetch("/api/stock", {
-        method: "GET",
+        method: "POST",
+        body: JSON.stringify(inputField),
+        headers: { "Content-Type": "application/json" },
       });
       const data = await res.json();
       setStockData(data);
